@@ -1,0 +1,54 @@
+mat-card {
+  padding: 3%;
+}
+
+.fake-button {
+  background-color: transparent;
+  border: none;
+  margin: -100%;
+}
+
+.mat-card-title {
+  font-weight: bold;
+  margin-bottom: 20%;
+  margin-top: 10%;
+}
+
+.title-p {
+  font-weight: bold;
+  font-size: medium;
+}
+
+span {
+  font-weight: bold;
+}
+
+.dates-of-admission-div {
+  margin-bottom: 2%;
+}
+
+.diagnoses-div,
+.investigations-div,
+.prescriptions-div {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  font-size: medium;
+  font-weight: bold;
+  border-bottom: 1px solid lightgray;
+}
+
+.diagnosis-form-field {
+  display: block;
+  width: 100%;
+}
+
+.diagnosis-span {
+  font-weight: bold;
+}

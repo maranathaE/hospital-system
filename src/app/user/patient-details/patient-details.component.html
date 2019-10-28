@@ -1,0 +1,176 @@
+<div class="container">
+    <mat-card>
+        <button class="fake-button"></button>
+
+        <mat-card-header>
+            <mat-card-title>{{patient.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p><span>Gender: </span>{{patient.gender}}</p>
+            <p><span>Date of birth: </span>{{patient.dateOfBirth}}</p>
+            <p><span>Age: </span>{{age}}</p>
+            <p><span>Mother: </span> {{patient.mothersName}}</p>
+            <!--<p><span>Emergency Contact: </span> {{patient.emergencyContactId}}</p>-->
+
+            <hr color="lightgray">
+
+            <div>
+                <p class="title-p">Address</p>
+                <p><span>Phone Number: </span>{{patient.phoneNumber}}</p>
+                <p><span>City: </span>{{city}}</p>
+                <p><span>Sub City: </span>{{subCity}}</p>
+                <p><span>Kebele: </span>{{kebele}}</p>
+                <p><span>House Number: </span>{{houseNumber}}</p>
+            </div>
+
+            <hr color="lightgray">
+
+            <div>
+                <p class="title-p">Emergency Contact</p>
+                <p><span>Name: </span>{{patient.emergencyContact.name}}</p>
+                <p><span>Phone Number: </span>{{patient.emergencyContact.phoneNumber}}</p>
+                <p><span>Address: </span>{{patient.emergencyContact.address}}</p>
+            </div>
+
+            <hr color="lightgray">
+
+            <p><span>Last Admitted: </span>{{patient.dateOfLastAdmission}}</p>
+            <div class="dates-of-admission-div">
+                <button mat-raised-button *ngIf="!showAdmissions; else hideAdmissions"
+                        (click)="showAdmissions = !showAdmissions;">Previous
+                    Admissions
+                </button>
+                <ng-template #hideAdmissions>
+                    <button mat-raised-button (click)="showAdmissions = !showAdmissions;">Hide Admissions</button>
+                </ng-template>
+                <div class="diagnoses-div" *ngIf="showAdmissions">
+                    <span>Dates of admission:</span>
+                    <p *ngIf="datesOfAdmission.length === 0; else dates">No previous admissions</p>
+                    <!--<p *ngIf="patient.datesOfAdmission.length === 0; else dates">No previous admissions</p>-->
+                    <ng-template #dates>
+                        <p *ngFor="let dateOfAdmission of datesOfAdmission">{{dateOfAdmission}}</p>
+                    </ng-template>
+                </div>
+            </div>
+
+            <hr color="lightgray">
+
+            <div>
+                <button mat-raised-button *ngIf="!showDiagnoses; else hideDiagnoses"
+                        (click)="showDiagnoses = !showDiagnoses;">Previous Diagnoses
+                </button>
+                <ng-template #hideDiagnoses>
+                    <button mat-raised-button (click)="showDiagnoses = !showDiagnoses;">Hide Diagnoses</button>
+                </ng-template>
+                <div class="diagnoses-div" *ngIf="showDiagnoses">
+                    <span>Diagnoses: </span>
+                    <!--<p *ngIf="diagnoses.length === 0; else diagnosesList">No previous diagnoses</p>-->
+                    <p *ngIf="patient.diagnoses.length === 0; else diagnosesList">No previous diagnoses</p>
+                    <ng-template #diagnosesList>
+                        <p *ngFor="let diagnosis of patient.diagnoses">{{diagnosis}}</p>
+                    </ng-template>
+                </div>
+            </div>
+
+            <hr color="lightgray">
+
+            <div>
+                <button mat-raised-button *ngIf="!showInvestigations; else hideInvestigations"
+                        (click)="showInvestigations = !showInvestigations;">Investigations
+                </button>
+                <ng-template #hideInvestigations>
+                    <button mat-raised-button (click)="showInvestigations = !showInvestigations;">Hide Investigations</button>
+                </ng-template>
+                <div class="diagnoses-div" *ngIf="showInvestigations">
+                    <span>Investigations: </span>
+                    <p *ngIf="allInvestigations.length === 0; else investigationsLost">No previous investigations</p>
+                    <ng-template #investigationsLost>
+                        <p *ngFor="let investigation of allInvestigations">{{investigation.type}}: {{investigation.results}}</p>
+                    </ng-template>
+                </div>
+            </div>
+
+            <hr color="lightgray">
+
+            <div *ngIf="authService.loggedInStaff.role === 'doctor'" class="investigations-div">
+                <!--<div class="investigations-div">-->
+                <mat-form-field>
+                    <mat-label>Investigations</mat-label>
+                    <mat-select [(value)]="selectedInvestigation">
+                        <mat-option *ngFor="let test of availableTests" [value]="test">
+                            {{test.testName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-button (click)="orderInvestigation()">Order Investigation</button>
+                <table mat-table [dataSource]="orderedInvestigations">
+                    <ng-container matColumnDef="testName">
+                        <th mat-header-cell *matHeaderCellDef> Investigation</th>
+                        <td mat-cell *matCellDef="let orderedInvestigation">
+                            {{testsService.getTest(orderedInvestigation.testId).testName}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action</th>
+                        <td mat-cell *matCellDef="let investigation">
+                            <button mat-raised-button color="warn"
+                                    (click)="removeInvestigation(investigation)">
+                                Remove
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedInvestigationsColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedInvestigationsColumns;"></tr>
+                </table>
+            </div>
+
+            <hr color="lightgray">
+
+            <div *ngIf="authService.loggedInStaff.role === 'doctor'" class="prescriptions-div">
+                <!--<div class="prescriptions-div">-->
+                <mat-form-field>
+                    <mat-label>Medications</mat-label>
+                    <mat-select [(value)]="selectedMedication">
+                        <mat-option *ngFor="let medication of medications" [value]="medication">
+                            {{medication.medicineName}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-button (click)="prescribeMedication()">Prescribe Medication</button>
+                <table mat-table [dataSource]="addedPrescriptions">
+                    <ng-container matColumnDef="medicineName">
+                        <th mat-header-cell *matHeaderCellDef> Medication</th>
+                        <td mat-cell *matCellDef="let prescription">
+                            {{medicinesService.getMedicine(prescription.medicineId).medicineName}}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action</th>
+                        <td mat-cell *matCellDef="let prescription">
+                            <button mat-raised-button color="warn"
+                                    (click)="removePrescription(prescription)">
+                                Remove
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedPrescriptionsColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedPrescriptionsColumns;"></tr>
+                </table>
+            </div>
+
+            <div *ngIf="authService.loggedInStaff.role === 'doctor'">
+                <mat-form-field class="diagnosis-form-field">
+                    <input matInput [formControl]="diagnosisCtrl" placeholder="Diagnosis" ngDefaultControl>
+                </mat-form-field>
+                <button mat-button (click)="addDiagnosis()">Add Diagnosis</button>
+
+                <p *ngIf="diagnosisAdded">Current diagnosis: <span class="diagnosis-span">{{diagnosis}}</span></p>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+</div>

@@ -1,0 +1,22 @@
+mat-card {
+  min-width: 28%;
+  max-width: 28%;
+  height: 155px;
+  background-color: rgba(185,185,185,0.2);
+  float: left;
+  margin: 1%;
+}
+
+.card-img {
+  display: block;
+  margin: 5%;
+  float: left;
+}
+
+.card-p {
+  padding: 5%;
+}
+
+.card-button {
+  width: 100%;
+}

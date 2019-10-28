@@ -1,0 +1,83 @@
+<app-header></app-header>
+
+<div class="container">
+    <mat-card>
+        <mat-card-title>Add New Staff</mat-card-title>
+        <div *ngIf="!showStaffForm">
+            <button mat-raised-button class="staff-form-button" (click)="showStaffForm = true">New Staff</button>
+            <p>Click the button to add new staff into the system.</p>
+        </div>
+
+        <div *ngIf="showStaffForm">
+            <p>Fill out the information for the new staff:</p>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Full Name" required [formControl]="nameCtrl">
+            </mat-form-field>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Username" required [formControl]="usernameCtrl">
+            </mat-form-field>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Password" type="password" required [formControl]="passwordCtrl">
+            </mat-form-field>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Phone Number (e.g. 0900112233)" required [formControl]="phoneNumberCtrl">
+            </mat-form-field>
+            <mat-form-field class="form-field">
+                <input matInput placeholder="Role" required [formControl]="roleCtrl">
+            </mat-form-field>
+
+            <button mat-raised-button class="staff-form-button add-staff-button" (click)="addStaff()">Add Staff</button>
+            <button mat-raised-button class="staff-form-button reset-staff-form-button" type="reset" (click)="resetStaffForm()">Reset</button>
+            <button mat-raised-button class="staff-form-button" (click)="showStaffForm = false; snackBar.dismiss()">Cancel</button>
+        </div>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title>Manage Staff</mat-card-title>
+        <mat-form-field class="search-form-field">
+            <input matInput [formControl]="nameSearchCtrl" (keyup)="searchStaff('name')" placeholder="Search by name">
+        </mat-form-field>
+        <mat-form-field class="search-form-field">
+            <input matInput [formControl]="phoneNumberSearchCtrl" (keyup)="searchStaff('phone')" placeholder="Search by phone number (e.g. 0900112233)">
+        </mat-form-field>
+
+        <!--<button mat-raised-button *ngIf="!all; else searchButton"-->
+                <!--(click)="searchedStaffs = staffs;-->
+                 <!--nameSearchCtrl.setValue(null);-->
+                  <!--phoneNumberSearchCtrl.setValue(null);-->
+                   <!--all = true">-->
+            <!--All Staff-->
+        <!--</button>-->
+        <!--<ng-template #searchButton>-->
+            <!--<button mat-raised-button (click)="all = false; searchedStaffs = []">Less</button>-->
+        <!--</ng-template>-->
+
+        <table mat-table [dataSource]="(searchedStaffs)">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef class="name-column">Name</th>
+                <td mat-cell *matCellDef="let staff" class="name-column" (click)="openStaff(staff.id)">{{staff.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef class="column">Phone Number</th>
+                <td mat-cell *matCellDef="let staff" class="column">{{staff.phoneNumber}}</td>
+            </ng-container>
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef class="column">Role</th>
+                <td mat-cell *matCellDef="let staff" class="column">{{staff.role}}</td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef class="column">Action</th>
+                <td mat-cell *matCellDef="let staff" class="column">
+                    <button mat-raised-button color="warn" type="button" *ngIf="active; else enableButton" (click)="setActive(staff.id, false)">Disable</button>
+                    <ng-template #enableButton>
+                        <button mat-raised-button color="primary" (click)="setActive(staff.id, true)">Enable</button>
+                    </ng-template>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="row"></tr>
+        </table>
+    </mat-card>
+
+</div>

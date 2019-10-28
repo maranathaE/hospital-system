@@ -1,0 +1,109 @@
+<app-header></app-header>
+
+<div class="container">
+    <mat-card>
+        <h3>Patient Details</h3>
+
+        <form [formGroup]="formGroup" (ngSubmit)="addPatient()" ngNativeValidate>
+            <div>
+                <mat-form-field class="name-form-field">
+                    <input matInput placeholder="Name" required [formControl]="nameCtrl">
+                </mat-form-field>
+                <mat-form-field class="name-form-field">
+                    <input matInput placeholder="Father's Name" required [formControl]="fathersNameCtrl">
+                </mat-form-field>
+                <mat-form-field class="name-form-field">
+                    <input matInput placeholder="Grandfather's Name" required [formControl]="grandfathersNameCtrl">
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="block full-name-form-field">
+                <input matInput placeholder="Mother's Full Name" required [formControl]="mothersNameCtrl">
+            </mat-form-field>
+
+            <mat-radio-group [formControl]="genderCtrl" required>
+                <span class="margin-right">Gender</span>
+                <mat-radio-button value="Male" class="margin-right">Male</mat-radio-button>
+                <mat-radio-button value="Female">Female</mat-radio-button>
+            </mat-radio-group>
+            <div>
+                <mat-form-field class="datepicker-form-field">
+                    <input matInput [matDatepicker]="picker" placeholder="Date of Birth" [formControl]="dateOfBirthCtrl"
+                           required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <!--<span class="age-span">Age: {{age}}</span>-->
+                <!--<mat-form-field>-->
+                <!--<input matInput type="number" [formControl]="ageCtrl" (keyup)="calculateDateOfBirth()"-->
+                <!--placeholder="Age">-->
+                <!--</mat-form-field>-->
+                <!--<span class="birth-year-span">Born: {{ birthYear }}</span>-->
+            </div>
+            <div>
+                <p>Address</p>
+                <mat-form-field>
+                    <input matInput placeholder="Phone Number (e.g. 0900112233)" required
+                           [formControl]="phoneNumberCtrl">
+                </mat-form-field>
+                <div>
+                    <mat-form-field class="address-form-field">
+                        <input matInput placeholder="City" required [formControl]="cityCtrl">
+                    </mat-form-field>
+                    <mat-form-field class="address-form-field">
+                        <input matInput placeholder="SubCity" required [formControl]="subCityCtrl">
+                    </mat-form-field>
+                    <mat-form-field class="small-address-form-field">
+                        <input matInput placeholder="Kebele" required [formControl]="kebeleCtrl">
+                    </mat-form-field>
+                    <mat-form-field class="small-address-form-field">
+                        <input matInput placeholder="House Number" required [formControl]="houseNumberCtrl">
+                    </mat-form-field>
+                </div>
+            </div>
+            <hr color="lightgray">
+            <div>
+                <h3>Emergency Contact</h3>
+                <mat-form-field class="full-name-form-field">
+                    <input matInput placeholder="Emergency Contact Full Name" required
+                           [formControl]="emergencyContactNameCtrl">
+                </mat-form-field>
+                <p>Address</p>
+                <mat-form-field>
+                    <input matInput placeholder="Phone Number (e.g. 0900112233)" required
+                           [formControl]="emergencyContactPhoneNumberCtrl">
+                </mat-form-field>
+                <div>
+                    <mat-form-field class="address-form-field">
+                        <input matInput placeholder="City" required [formControl]="emergencyContactCityCtrl">
+                    </mat-form-field>
+                    <mat-form-field class="address-form-field">
+                        <input matInput placeholder="SubCity" required [formControl]="emergencyContactSubCityCtrl">
+                    </mat-form-field>
+                    <mat-form-field class="small-address-form-field">
+                        <input matInput placeholder="Kebele" required [formControl]="emergencyContactKebeleCtrl">
+                    </mat-form-field>
+                    <mat-form-field class="small-address-form-field">
+                        <input matInput placeholder="House Number" required
+                               [formControl]="emergencyContactHouseNumberCtrl">
+                    </mat-form-field>
+                    <!--<button mat-raised-button (click)="addEmergencyContact()" class="add-emergency-contact-button" type="button">Add Emergency Contact</button>-->
+                </div>
+            </div>
+
+            <button mat-raised-button type="submit">Register</button>
+            <button mat-raised-button class="reset-button" type="reset">Reset</button>
+            <button mat-raised-button class="cancel-button" routerLink="/home" type="button">Cancel</button>
+
+        </form>
+
+    </mat-card>
+</div>
+
+<!--dateOfLastAdmission: string;-->
+<!--datesOfAdmission: [];-->
+<!--observations: [];-->
+<!--investigations: Investigation[];-->
+<!--investigationResults: Result[];-->
+<!--prescriptions: Prescription[];-->
+<!--diagnoses: [];-->

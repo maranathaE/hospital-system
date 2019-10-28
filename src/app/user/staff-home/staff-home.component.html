@@ -1,0 +1,48 @@
+<div class="container">
+    <mat-card  *ngIf="authService.isAdmin">
+        <img src="../../../assets/admin.png" class="card-img">
+        <p class="card-p">Open the admin panel</p>
+        <button mat-raised-button class="mat-card-content card-button" routerLink="/admin-panel">Admin Panel
+        </button>
+    </mat-card>
+    <mat-card *ngIf="authService.loggedInStaff.role === 'receptionist'">
+    <!--<mat-card>-->
+        <img src="../../../assets/patient.png" class="card-img">
+        <p class="card-p">Register a new patient into the system</p>
+        <button mat-raised-button class="mat-card-content card-button" routerLink="/register-patient">Register Patient
+        </button>
+    </mat-card>
+    <mat-card>
+        <img src="../../../assets/search.png" class="card-img">
+        <p class="card-p">Search through existing records</p>
+        <button mat-raised-button class="mat-card-content card-button" routerLink="/search-patient">Search Patient
+        </button>
+    </mat-card>
+    <mat-card *ngIf="authService.loggedInStaff.role === 'pharmacist'">
+    <!--<mat-card>-->
+        <img src="../../../assets/pending.png" class="card-img">
+        <p class="card-p">Manage pending prescriptions</p>
+        <button mat-raised-button class="mat-card-content card-button" routerLink="/prescriptions">Pending
+            Prescriptions
+        </button>
+    </mat-card>
+    <mat-card *ngIf="authService.loggedInStaff.role === 'radiologist' || authService.loggedInStaff.role === 'lab-tech'">
+    <!--<mat-card>-->
+        <img src="../../../assets/pending.png" class="card-img">
+        <p class="card-p">Manage pending investigation orders</p>
+        <button mat-raised-button class="mat-card-content card-button" routerLink="/investigations">Pending
+            Investigations
+        </button>
+    </mat-card>
+    <mat-card>
+        <img src="../../../assets/settings.png" class="card-img">
+        <p class="card-p">Change your login credentials</p>
+        <button mat-raised-button class="mat-card-content card-button" routerLink="/manage-account">Manage Account
+        </button>
+    </mat-card>
+    <mat-card>
+        <img src="../../../assets/messages.png" class="card-img">
+        <p class="card-p">View and send messages</p>
+        <button mat-raised-button class="mat-card-content card-button" routerLink="/messages">Messages</button>
+    </mat-card>
+</div>

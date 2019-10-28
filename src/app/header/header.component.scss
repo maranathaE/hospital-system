@@ -1,0 +1,46 @@
+.nav-bar {
+  background-color: blue;
+  padding: 1%;
+}
+
+.home-link {
+  color: ghostwhite;
+  text-decoration: none;
+  font-size: xx-large;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 6px;
+}
+
+.home-link:hover {
+  color: ghostwhite;
+}
+
+.home-link:active {
+  color: ghostwhite;
+}
+
+.nav-bar-navigation-link {
+  color: ghostwhite;
+  text-decoration: none;
+  margin-left: 2%;
+}
+
+.nav-bar-navigation-link:hover {
+  color: ghostwhite;
+}
+
+.nav-bar-navigation-link:active {
+  color: ghostwhite;
+}
+
+.btn-logout {
+  float: right;
+}
+
+span {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  color: ghostwhite;
+}

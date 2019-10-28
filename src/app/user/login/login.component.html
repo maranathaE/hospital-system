@@ -1,0 +1,13 @@
+<div class="container">
+    <mat-card>
+        <h6>Login</h6>
+        <mat-form-field class="form-field">
+            <input matInput placeholder="Username" type="text" autocomplete="none" [formControl]="usernameCtrl">
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <input matInput type="Password" placeholder="Password" [formControl]="passwordCtrl">
+        </mat-form-field>
+        <button mat-raised-button class="form-field button" (click)="login()">Login</button>
+    </mat-card>
+</div>

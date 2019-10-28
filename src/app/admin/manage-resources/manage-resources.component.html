@@ -1,0 +1,59 @@
+<app-header></app-header>
+
+<div class="container">
+    <mat-card>
+        <mat-card class="resource-card">
+            <mat-card-title>Medicines</mat-card-title>
+            <div class="input-div">
+                <mat-form-field class="input-form-field">
+                    <input matInput placeholder="Medicine" required [formControl]="medicineCtrl">
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="addMedicine()">Add Medicine</button>
+            </div>
+
+            <table mat-table [dataSource]="(medicines)">
+                <ng-container matColumnDef="medicineName">
+                    <th mat-header-cell *matHeaderCellDef class="name-column">Medicine Name</th>
+                    <td mat-cell *matCellDef="let medicine" class="name-column">{{medicine.medicineName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="column">Action</th>
+                    <td mat-cell *matCellDef="let medicine" class="column">
+                        <button mat-raised-button color="warn" (click)="deleteMedicine(medicine.id);">Delete Medicine
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedMedicinesColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedMedicinesColumns;" class="row"></tr>
+            </table>
+        </mat-card>
+
+        <mat-card class="resource-card">
+            <mat-card-title>Tests</mat-card-title>
+            <div class="input-div">
+                <mat-form-field class="input-form-field">
+                    <input matInput placeholder="Test" required [formControl]="testCtrl">
+                </mat-form-field>
+                <button mat-raised-button color="primary" (click)="addTest()">Add Test</button>
+            </div>
+
+            <table mat-table [dataSource]="(tests)">
+                <ng-container matColumnDef="testName">
+                    <th mat-header-cell *matHeaderCellDef class="name-column">Test Name</th>
+                    <td mat-cell *matCellDef="let test" class="name-column">{{test.testName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="column">Action</th>
+                    <td mat-cell *matCellDef="let test" class="column">
+                        <button mat-raised-button color="warn" (click)="deleteTest(test.id);">Delete Test</button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedTestsColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedTestsColumns;" class="row"></tr>
+            </table>
+        </mat-card>
+
+    </mat-card>
+</div>

@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<div class="container">
+    <mat-card-title>Change Credentials</mat-card-title>
+    <span *ngIf="!updateUsername; else usernameField"
+          class="old-data-span">Username: {{authService.loggedInStaff.username}}</span>
+    <button mat-raised-button *ngIf="!updateUsername" (click)="updateUsername = true">Edit Username</button>
+    <ng-template #usernameField>
+        <mat-form-field>
+            <input matInput placeholder="New Username" [formControl]="usernameCtrl" ngDefaultControl
+                   autocomplete="none">
+        </mat-form-field>
+    </ng-template>
+    <br>
+    <span *ngIf="!updatePassword; else passwordFields" class="old-data-span">Password: ********</span>
+    <button mat-raised-button *ngIf="!updatePassword" (click)="updatePassword = true">Edit Password</button>
+    <ng-template #passwordFields>
+        <mat-form-field>
+            <input matInput placeholder="Old Password" type="password" [formControl]="oldPasswordCtrl" ngDefaultControl>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="New Password" type="password" [formControl]="newPasswordCtrl" ngDefaultControl>
+        </mat-form-field>
+    </ng-template>
+    <br>
+    <button mat-raised-button *ngIf="updateUsername || updatePassword" (click)="updateCredentials()">Update Credentials</button>
+    <button mat-raised-button *ngIf="updateUsername || updatePassword" (click)="updateUsername = false; updatePassword = false;">Cancel</button>
+</div>

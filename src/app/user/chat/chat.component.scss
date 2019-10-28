@@ -1,0 +1,38 @@
+table {
+  width: 100%;
+}
+
+th {
+  height: 0;
+}
+
+tr {
+  border: none;
+}
+
+.out-text-span {
+  margin-left: 10%;
+}
+
+.out-in-at-span {
+  font-size: x-small;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.out-at-span {
+  color: green;
+  margin-left: 10%;
+}
+
+.in-at-span {
+  color: blue;
+}
+
+.message-input-form-field {
+  width: 100%;
+    display: block;
+    width: 70%;
+}

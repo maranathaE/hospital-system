@@ -1,0 +1,103 @@
+<app-header></app-header>
+
+<div class="container">
+    <mat-card>
+        <mat-form-field class="search-form-field">
+            <input matInput [formControl]="searchCtrl" (keyup)="searchBySender()" placeholder="Search by sender">
+        </mat-form-field>
+
+        <table mat-table [dataSource]="searchedMessages">
+            <ng-container matColumnDef="with">
+                <th mat-header-cell *matHeaderCellDef>Staff</th>
+                <td mat-cell *matCellDef="let message"> {{message.with}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="at">
+                <th mat-header-cell *matHeaderCellDef>Last Message At</th>
+                <td mat-cell *matCellDef="let message"> {{message.at}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef>Type</th>
+                <td mat-cell *matCellDef="let message"> {{message.type}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedMessagesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedMessagesColumns; let message;" class="row" (click)="openChat(message.id)"></tr>
+        </table>
+
+        <p class="hint-p">Select a chat to open messages</p>
+        <button mat-raised-button color="primary" class="new-chat-button" (click)="showReceivers = true" *ngIf="!showReceivers; else receiversList">+</button>
+        <ng-template #receiversList>
+            <mat-label>New chat with: </mat-label>
+            <mat-select [(value)]="selectedReceiver" class="receivers-select" placeholder="--Select staff--" (valueChange)="receiverSelectChange()">
+                <mat-option *ngFor="let receiver of receivers" [value]="receiver.id">
+                    {{receiver.name}}
+                </mat-option>
+            </mat-select>
+            <button mat-raised-button color="primary" *ngIf="receiverSelected" (click)="createChat()">Create chat</button>
+        </ng-template>
+    </mat-card>
+
+    <!--<mat-card-title>Received Messages</mat-card-title>-->
+    <!--<table mat-table [dataSource]="receivedMessages" *ngIf="receivedMessages.length > 0; else noReceivedMessages">-->
+    <!--<ng-container matColumnDef="from">-->
+    <!--<th mat-header-cell *matHeaderCellDef>From</th>-->
+    <!--<td mat-cell *matCellDef="let receivedMessage"> {{receivedMessage.sender}}</td>-->
+    <!--</ng-container>-->
+
+    <!--<ng-container matColumnDef="message">-->
+    <!--<th mat-header-cell *matHeaderCellDef>Message</th>-->
+    <!--<td mat-cell *matCellDef="let receivedMessage"> {{receivedMessage.message}}</td>-->
+    <!--</ng-container>-->
+
+    <!--<tr mat-header-row *matHeaderRowDef="displayedReceivedMessagesColumns"></tr>-->
+    <!--<tr mat-row *matRowDef="let row; columns: displayedReceivedMessagesColumns;"></tr>-->
+    <!--</table>-->
+    <!--<ng-template #noReceivedMessages>-->
+    <!--<p>No received messages</p>-->
+    <!--<hr>-->
+    <!--</ng-template>-->
+
+
+    <!--<mat-card-title>Sent Messages</mat-card-title>-->
+    <!--<table mat-table [dataSource]="sentMessages" *ngIf="sentMessages.length > 0; else noSentMessages">-->
+    <!--<ng-container matColumnDef="to">-->
+    <!--<th mat-header-cell *matHeaderCellDef>To</th>-->
+    <!--<td mat-cell *matCellDef="let sentMessage"> {{sentMessage.receiver}}</td>-->
+    <!--</ng-container>-->
+
+    <!--<ng-container matColumnDef="message">-->
+    <!--<th mat-header-cell *matHeaderCellDef>Message</th>-->
+    <!--<td mat-cell *matCellDef="let sentMessage"> {{sentMessage.message}}</td>-->
+    <!--</ng-container>-->
+
+    <!--<tr mat-header-row *matHeaderRowDef="displayedSentMessagesColumns"></tr>-->
+    <!--<tr mat-row *matRowDef="let row; columns: displayedSentMessagesColumns;"></tr>-->
+    <!--</table>-->
+    <!--<ng-template #noSentMessages>-->
+    <!--<p>No sent messages</p>-->
+    <!--<hr>-->
+    <!--</ng-template>-->
+
+
+    <!--<mat-card-title>New Message</mat-card-title>-->
+    <!--<div class="message-div">-->
+    <!--<mat-form-field class="send-to-select-form-field">-->
+    <!--<mat-label>Send to</mat-label>-->
+    <!--<mat-select [(value)]="selectedReceiver">-->
+    <!--<mat-option *ngFor="let staff of receivers" [value]="staff.id">-->
+    <!--{{staff.name}}-->
+    <!--</mat-option>-->
+    <!--</mat-select>-->
+    <!--</mat-form-field>-->
+
+    <!--<mat-form-field class="message-input-form-field">-->
+    <!--<input matInput placeholder="Message..." [formControl]="messageCtrl" class="message-textarea">-->
+    <!--</mat-form-field>-->
+
+    <!--<button mat-raised-button color="primary" (click)="sendMessage()" [formControl]="sendButton" ngDefaultControl-->
+    <!--class="send-button">Send-->
+    <!--</button>-->
+    <!--</div>-->
+</div>

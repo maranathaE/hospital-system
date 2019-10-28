@@ -1,0 +1,30 @@
+<app-header></app-header>
+
+<div class="container">
+    <mat-card>
+        <mat-form-field class="search-form-field">
+            <input matInput [formControl]="nameSearchCtrl" (keyup)="searchPatients('name')" placeholder="Search by name">
+        </mat-form-field>
+        <mat-form-field class="search-form-field">
+            <input matInput [formControl]="phoneNumberSearchCtrl" (keyup)="searchPatients('phone')" placeholder="Search by phone number (e.g. 0900112233)">
+        </mat-form-field>
+
+        <table mat-table [dataSource]="(searchedPatients)">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef class="name-column">Name</th>
+                <td mat-cell *matCellDef="let patient" class="name-column">{{patient.name}}</td>
+            </ng-container>
+            <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef class="column">Phone Number</th>
+                <td mat-cell *matCellDef="let patient" class="column">{{patient.phoneNumber}}</td>
+            </ng-container>
+            <ng-container matColumnDef="dateOfLastAdmission">
+                <th mat-header-cell *matHeaderCellDef class="column">Last Admitted</th>
+                <td mat-cell *matCellDef="let patient" class="column">{{patient.dateOfLastAdmission}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let patient;" class="row" (click)="openPatient(patient.id)"></tr>
+        </table>
+    </mat-card>
+</div>

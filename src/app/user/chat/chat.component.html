@@ -1,0 +1,35 @@
+<div class="container">
+    <mat-card>
+        <table mat-table [dataSource]="messages">
+            <ng-container matColumnDef="message">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let text">
+                    <p class="out-text-span" *ngIf="text.sent; else received">
+                        {{text.message}}
+                        <span class="out-in-at-span out-at-span">
+                            out at {{text.at}}
+                        </span>
+                    </p>
+                    <ng-template #received>
+                        <p>
+                            {{text.message}}
+                            <span class="out-in-at-span in-at-span">
+                                    in at {{text.at}}
+                            </span>
+                        </p>
+                    </ng-template>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedMessagesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedMessagesColumns;"></tr>
+        </table>
+
+        <mat-form-field class="message-input-form-field">
+            <input matInput placeholder="Message..." [formControl]="messageCtrl" class="message-textarea">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="sendMessage()" [formControl]="sendButton" ngDefaultControl
+        class="send-button">Send
+        </button>
+    </mat-card>
+</div>

@@ -1,0 +1,25 @@
+<div class="nav-bar">
+    <a routerLink="/home" class="home-link">Hospital</a>
+
+    <a routerLink="/home" class="nav-bar-navigation-link">Home</a>
+    <a routerLink="/admin-panel" class="nav-bar-navigation-link" *ngIf="authService.isAdmin">Admin Panel</a>
+    <!--<a routerLink="/admin-panel" class="nav-bar-navigation-link">Admin Panel</a>-->
+
+    <a routerLink="/register-patient" class="nav-bar-navigation-link"
+       *ngIf="authService.loggedInStaff.role === 'receptionist'">Register</a>
+    <!--<a routerLink="/register-patient" class="nav-bar-navigation-link">Register</a>-->
+
+    <a routerLink="/search-patient" class="nav-bar-navigation-link">Search</a>
+
+    <a routerLink="/prescriptions" class="nav-bar-navigation-link"
+       *ngIf="authService.loggedInStaff.role === 'pharmacist'">Pending</a>
+    <!--<a routerLink="/prescriptions" class="nav-bar-navigation-link">Pending P</a>-->
+
+    <a routerLink="/investigations" class="nav-bar-navigation-link"
+       *ngIf="authService.loggedInStaff.role === 'lab-tech' ||
+       authService.loggedInStaff.role === 'radiologist'">Pending</a>
+    <!--<a routerLink="/investigations" class="nav-bar-navigation-link">Pending I</a>-->
+
+    <button mat-raised-button (click)="logout()" class="btn-logout">Logout</button>
+    <span>{{authService.loggedInStaff.name.split(' ')[0]}}</span>
+</div>
